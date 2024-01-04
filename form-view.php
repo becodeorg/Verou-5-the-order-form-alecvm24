@@ -31,7 +31,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" class="form-control"/>
+                <input type="email" id="email" name="email" class="form-control" value="<?= $_SESSION['formData']['email'] ?? '' ?>"/>
             </div>
             <div></div>
         </div>

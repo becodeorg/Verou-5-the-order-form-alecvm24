@@ -35,12 +35,30 @@ $totalValue = 0;
 function validate()
 {
     // TODO: This function will send a list of invalid fields back
-    return [];
+    $invalidFields = [];
+
+    $requiredFields = ['email', 'street', 'streetnumber', 'city', 'zipcode'];
+    foreach ($requiredFields as $field){
+        if (empty($_POST[$field])){
+            $invalidFields[] = $field;
+        }
+    }
+
+    if (!is_numeric($_POST['zipcode'])){
+        $invalidFields[] = 'zipcode';
+    }
+
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+        $invalidFields = 'email';
+    }
+    
+    return $invalidFields;
 }
 
 function handleForm()
 {
     // TODO: form related tasks (step 1)
+    $_SESSION['formData'] = $_POST;
 
     // Validation (step 2)
     $invalidFields = validate();
@@ -48,11 +66,12 @@ function handleForm()
         // TODO: handle errors
     } else {
         // TODO: handle successful submission
+        echo "<div class='alert alert-succes mt-3'>Order placed successfully!</div>";
     }
 }
 
 // TODO: replace this if by an actual check for the form to be submitted
-$formSubmitted = false;
+$formSubmitted = !empty($_POST);
 if ($formSubmitted) {
     handleForm();
 }
