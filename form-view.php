@@ -1,4 +1,6 @@
-<?php // This file is mostly containing things for your view / html ?>
+<?php 
+    declare(strict_types=1);// This file is mostly containing things for your view / html 
+?>
 
 <!doctype html>
 <html lang="en">
@@ -42,21 +44,21 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="street">Street:</label>
-                    <input type="text" name="street" id="street" class="form-control">
+                    <input type="text" name="street" id="street" class="form-control" value="<?= $_SESSION['formData']['street'] ?? '' ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetnumber">Street number:</label>
-                    <input type="text" id="streetnumber" name="streetnumber" class="form-control">
+                    <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?= $_SESSION['formData']['streetnumber'] ?? '' ?>">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="city">City:</label>
-                    <input type="text" id="city" name="city" class="form-control">
+                    <input type="text" id="city" name="city" class="form-control" value="<?= $_SESSION['formData']['city'] ?? '' ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
-                    <input type="text" id="zipcode" name="zipcode" class="form-control">
+                    <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?= $_SESSION['formData']['zipcode'] ?? '' ?>">
                 </div>
             </div>
         </fieldset>
@@ -71,10 +73,10 @@
             <?php endforeach; ?>
         </fieldset>
 
-        <button type="submit" class="btn btn-primary">Order!</button>
+        <button type="submit" class="btn btn-primary">Order! Total: &euro; <?php echo $totalValue ?></button>
     </form>
 
-    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
+    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in values.</footer>
 </div>
 
 <style>
