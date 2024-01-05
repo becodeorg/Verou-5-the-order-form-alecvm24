@@ -44,7 +44,7 @@ function validate()
         }
     }
 
-    if (!is_numeric($_POST['zipcode'])){
+    if (!ctype_digit($_POST['zipcode'])){
         $invalidFields[] = 'zipcode';
     }
 
@@ -64,9 +64,18 @@ function handleForm()
     $invalidFields = validate();
     if (!empty($invalidFields)) {
         // TODO: handle errors
+        foreach ($invalidFields as $field){
+            echo "<div class='alert alert-danger mt-3'>$field is invalid or empty</div>";
+        }
     } else {
+        if (isset($_SESSION['formData']['products']) && is_array($_SESSION['formData']['products'])){
+            echo "<div class='alert alert-success mt-3'>Order placed successfully! Chosen products: " . implode(', ', $_SESSION['formData']['products']) . " | Delivery Address: {$_SESSION['formData']['street']} {$_SESSION['formData']['streetnumber']}, {$_SESSION['formData']['city']} {$_SESSION['formData']['zipcode']}</div>";
+        } else{
+            echo "<div class='alert alert-success mt-3'>Order placed successfully! | Delivery Address: {$_SESSION['formData']['street']} {$_SESSION['formData']['streetnumber']}, {$_SESSION['formData']['city']} {$_SESSION['formData']['zipcode']}</div>";        
+        }
         // TODO: handle successful submission
-        echo "<div class='alert alert-succes mt-3'>Order placed successfully!</div>";
+
+        $_SESSION['formData'] = [];
     }
 }
 
