@@ -1,5 +1,5 @@
 <?php 
-    declare(strict_types=1);// This file is mostly containing things for your view / html 
+    declare(strict_types=1); 
 ?>
 
 <!doctype html>
@@ -16,19 +16,12 @@
 <body>
 <div class="container">
     <h1>Place your order</h1>
-    <?php // Navigation for when you need it ?>
-    <?php /*
-    <nav>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="?food=1">Order food</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="?food=0">Order drinks</a>
-            </li>
-        </ul>
-    </nav>
-    */ ?>
+    <?php 
+    if (isset($_SESSION['confirmationMessage'])){
+        echo "<div class='alert alert-success mt-3'>{$_SESSION['confirmationMessage']}</div>";
+        unset($_SESSION['confirmationMessage']);
+    }
+    ?>
     <form method="POST">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -67,7 +60,6 @@
             <legend>Products</legend>
             <?php foreach ($products as $i => $product): ?>
                 <label>
-					<?php // <?= is equal to <?php echo ?>
                     <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
                     &euro; <?= number_format($product['price'], 2) ?></label><br />
             <?php endforeach; ?>
